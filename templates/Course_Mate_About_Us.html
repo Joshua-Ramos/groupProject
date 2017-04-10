@@ -27,7 +27,7 @@ nav ul {
     list-style-type: none;
     padding: 0;
 }
-   
+
 nav ul a {
     text-decoration: none;
 }
@@ -139,12 +139,12 @@ span.psw {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
+    from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
 }
-    
+
 @keyframes animatezoom {
-    from {transform: scale(0)} 
+    from {transform: scale(0)}
     to {transform: scale(1)}
 }
 
@@ -160,6 +160,8 @@ span.psw {
 }
 </style>
 
+<link rel="stylesheet" href="../../static/css/style.css">
+
 <body>
 
 <div class="container">
@@ -167,7 +169,7 @@ span.psw {
 <header>
 <img src="Course_Mate_Logo.png" alt="logo" width="265" height="196" style="width   :340px;height:100px;">
 </header>
-  
+
 <nav>
   <ul>
     <li><a href="Course_Mate.html">Home</a></li>
@@ -178,87 +180,10 @@ span.psw {
 </nav>
 
 <article>
-  <h1>Welcome!</h1>
-  <p>Get good grades in all of your courses by becoming part of our rich community of students Access millions of resources by joining or logging in today.</p>
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-
-<button onclick=
-"document.getElementById('id02').style.display='block'" style="width:auto;">Create New Account</button>
+  <h1>About Us</h1>
+  <p>We're a group of students who are currently enrolled in CSCI 3308 at CU Boulder.</p>
 
 </article>
-
-<div id="id01" class="modal">
-  <form class="modal-content animate" action="/action_page.php">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="avatar_icon.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-      <input type="checkbox" checked="checked"> Remember me
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form> 
-</div>
-
-<div id="id02" class="modal">
-  <form class="modal-content animate" action="/action_page.php">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-    </div>
-    <div class="container">
-      <label><b>Enter E-Mail</b></label>
-      <input type="text" placeholder="Enter e-mail" name="email" required>
-      
-      <label><b>Create Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label><b>Create Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Create Account</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form> 
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-<script>
-// Get the modal
-var modal = document.getElementById('id02');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
 
 <footer>Copyright &copy; CourseMate.com</footer>
 
@@ -266,4 +191,3 @@ window.onclick = function(event) {
 
 </body>
 </html>
-

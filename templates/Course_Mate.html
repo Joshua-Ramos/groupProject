@@ -27,7 +27,7 @@ nav ul {
     list-style-type: none;
     padding: 0;
 }
-   
+
 nav ul a {
     text-decoration: none;
 }
@@ -52,13 +52,13 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-    background-color: Blue;
+    background-color: #ADD8E6;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 20%;
 }
 
 button:hover {
@@ -139,12 +139,12 @@ span.psw {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
+    from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
 }
-    
+
 @keyframes animatezoom {
-    from {transform: scale(0)} 
+    from {transform: scale(0)}
     to {transform: scale(1)}
 }
 
@@ -160,28 +160,58 @@ span.psw {
 }
 </style>
 
+
 <body>
 
 <div class="container">
 
 <header>
-<img src="Course_Mate_Logo.png" alt="logo" width="265" height="196" style="width   :340px;height:100px;">
+<img src="../static/Course_Mate_Logo.png" alt="logo" width="265" height="196" style="width   :340px;height:100px;">
 </header>
-  
+
 <nav>
   <ul>
     <li><a href="Course_Mate.html">Home</a></li>
     <li><a href="#">Find a Course Thread</a></li>
-    <li><a href="#">Upload Document</a></li>
+    <!--<li><a href="upload_page.html">Upload Document</a></li>-->
+    <li><a href="/upload">click here</a></li>
     <li><a href="Course_Mate_About_Us.html">About Us</a></li>
   </ul>
 </nav>
 
 <article>
-  <h1>About Us</h1>
-  <p>We're a group of students who are currently enrolled in CSCI 3308 at CU Boulder.</p>
- 
+  <h1>Welcome!</h1>
+  <p>Get good grades in all of your courses by becoming part of our rich community of students Access millions of resources by joining or logging in today.</p>
+<!--<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+<button onclick=
+"document.getElementById('id02').style.display='block'" style="width:auto;">Create New Account</button>-->
+
+
 </article>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 <footer>Copyright &copy; CourseMate.com</footer>
 
@@ -189,4 +219,3 @@ span.psw {
 
 </body>
 </html>
-
