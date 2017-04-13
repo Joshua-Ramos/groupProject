@@ -16,20 +16,27 @@ class UploadForm(Form):
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
-    if not session.get('logged_in'):
-        return render_template('login_screen/index.html')
+    if session.get('logged_in'):
+        return render_template('index.html')
     else:
-        return render_template('Course_Mate.html')
+        return render_template('login_screen/index.html')
+
+
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login_handle():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
-        session['logged_in'] = True
-        return render_template('Course_Mate.html')
+    if session.get('logged_in'):
+        return home_page()
     else:
-        return '<h1> Incorrect logon </h1>'
+        if request.form['password'] == 'password' and request.form['username'] == 'admin':
+            session['logged_in'] = True
+            return home_page()
+        else:
+            return '<h1> Incorrect logon </h1>'
 
-
+@app.route('/courses')
+def courses_page():
+    return render_template('courses.html')
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
@@ -37,8 +44,18 @@ def upload_page():
     if form.validate_on_submit():
         output = s3_upload(form.example)
         flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
-    return render_template('example.html', form = form)
+    return render_template('upload.html', form = form)
+
+
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
+
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return render_template('login_screen/index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

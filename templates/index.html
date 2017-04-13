@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>CourseMate | Home</title>
+    <link rel="stylesheet" href="../../static/css/home_style.css">
+    <meta http-equiv="cache-control" content="no-cache" />
+  </head>
+
+
+  <body>
+
+    <div class="container">
+
+      {% include "header.html" %}
+      {% include "navigation.html" %}
+
+      <article>
+        <h1>Welcome!</h1>
+        <p>Get good grades in all of your courses by becoming part of our rich community of students Access millions of resources by joining or logging in today.</p>
+        <!--<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+        <button onclick=
+        "document.getElementById('id02').style.display='block'" style="width:auto;">Create New Account</button>-->
+      </article>
+
+      <script>
+          // Get the modal
+          var modal = document.getElementById('id01');
+
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+      </script>
+
+
+      <script>
+          // Get the modal
+          var modal = document.getElementById('id02');
+
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+      </script>
+
+      {% include "footer.html" %}
+
+    </div>
+
+  </body>
+</html>

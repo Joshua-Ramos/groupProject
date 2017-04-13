@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <title>CourseMate | Upload</title>
+    <link rel="stylesheet" href="../../static/css/home_style.css">
+
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+</head>
+
+<body>
+    <div>
+        {% include "header.html" %}
+        {% include "navigation.html" %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            {{ form.csrf_token }}
+            {{ form.example }}
+            <input type="submit" value="Go">
+        </form>
+
+        {% include "footer.html" %}
+    </div>
+
+</body>
