@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request, session
+from flask import Flask, render_template, flash, request, session, redirect, url_for
 from flask_wtf import Form
 from flask_wtf.file import FileField
 from tools import s3_upload
@@ -16,45 +16,48 @@ class UploadForm(Form):
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
-    if session.get('logged_in'):
-        return render_template('index.html')
-    else:
-        return render_template('login_screen/index.html')
+    if not session.get('logged_in'): return login_page()    # block access if not logged in
 
+    return render_template('index.html')
 
 
 @app.route('/login', methods = ['POST', 'GET'])
-def login_handle():
-    if session.get('logged_in'):
-        return home_page()
-    else:
-        if request.form['password'] == 'password' and request.form['username'] == 'admin':
+def login_page():
+    if request.method == 'POST':
+        if request.form['username'] == 'admin' and request.form['password'] == 'password':
             session['logged_in'] = True
-            return home_page()
+            return redirect(url_for('home_page'))
         else:
-            return '<h1> Incorrect logon </h1>'
+            return 'Invalid credentials. Please try again.'
+    return render_template('login_screen/index.html')
 
 @app.route('/courses')
 def courses_page():
+    if not session.get('logged_in'):return login_page()    # block access if not logged in
+
     return render_template('courses.html')
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
+    if not session.get('logged_in'): return login_page()    # block access if not logged in
+
     form = UploadForm()
     if form.validate_on_submit():
         output = s3_upload(form.example)
         flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
-    return render_template('upload.html', form = form)
+    return render_template('upload.html', form=form)
 
 
 @app.route('/about')
 def about_page():
+    if not session.get('logged_in'): return login_page()    # block access if not logged in
+
     return render_template('about.html')
 
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
-    return render_template('login_screen/index.html')
+    return login_page()
 
 
 if __name__ == '__main__':

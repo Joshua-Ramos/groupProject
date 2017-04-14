@@ -1,23 +1,62 @@
+form {
+    margin: auto;
+    width:250px;
+    /*border: 1px solid black;*/
+    /*text-align: center;*/
+}
+
 
 div.container {
     width: 100%;
-    border: 1px solid Blue;
+    border: 1px solid blue;
+    height: 100%;
 }
 
-header, footer {
+div.page {
+    width: 960px;
+    margin: auto
+    /*border: 1px solid Black;*/
+}
+
+div.border {
+    width: 100%;
+    border: 1px solid black;
+}
+
+header {
     padding: 1em;
     color: white;
     background-color: rgb(171,217,243);
+    /*background-color: #72abff;*/
     clear: left;
     text-align: center;
+    border: 1px solid black;
+}
+
+footer {
+    position: absolute;
+    text-align: center;
+    /*vertical-align: middle;*/
+    bottom: 0;
+    clear: left;
+    width: 960px;
+    height: auto;
+    background-color: rgb(171,217,243);
+    /*background-color: #3adcff;*/
+    color: white;
+
+
 }
 
 nav {
     float: left;
-    max-width: 160px;
+    max-width: 200px;
     margin: 0;
-    padding: 1em;
-    border-right: 1px solid blue;
+    padding: 2em;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
 
 }
 
@@ -31,9 +70,9 @@ nav ul a {
 }
 
 article {
-    margin-left: 170px;
-    padding: 1em;
-    overflow: hidden;
+    margin-left: 169px;
+    padding: 1.5em;
+    overflow: inherit;
 }
 
 
