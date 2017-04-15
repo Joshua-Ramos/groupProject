@@ -22,17 +22,20 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://CourseMate:password@loc
 db = SQLAlchemy(app)
 # from app import views, models
 
-class Users(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
+class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
 
     __tablename__ = 'User'
 
     id = db.Column('User_ID', db.Integer, primary_key=True)
     username = db.Column('Username', db.String, nullable=False)
     password = db.Column('Password', db.String, nullable=False)
+    email = db.Column('Email', db.String, nullable=False)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
+        self.email = email
+
 
     def __repr__(self):
         return '<title {}'.format(self.username)
@@ -40,18 +43,23 @@ class Users(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqla
 import flask
 @app.route('/testdb')  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
 def testdb():
-    admin = Users('admin', 'password')
-    user1 = Users('user1', 'password1')
+    admin = User('admin', 'password', 'email@admin.com')
+    user1 = User('user1', 'password1', 'email@user.com')
 
-    # db.session.add(admin)
-    # db.session.add(user1)
+    db.session.add(admin)
+    db.session.add(user1)
+    db.session.commit()
 
-    results = Users.query.all()
+    results = User.query.all()
+    # return results[0]
 
     json_results = []
     for result in results:
-        d = {'username': result.username,
-             'password': result.password}
+        d = {'id': result.id,
+             'username': result.username,
+             'password': result.password,
+             'email': result.email
+             }
         json_results.append(d)
 
     return flask.jsonify(items=json_results)
@@ -68,29 +76,52 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/signUp', methods=['POST', 'GET'])
+@app.route('/signup', methods=['POST', 'GET'])
 def signup_page():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         email = request.form['email address']
-        return 'fuck'
+        new_user = User(username, password, email)
+        available = True
+        for user in User.query.all():
+            if new_user.username == user.username:
+                available = False
+        if available:
+            db.session.add(new_user)
+            db.session.commit()
+            session['logged_in'] = True
+            return redirect(url_for('home_page'))
+        else:
+            flask.flash('username is already in use')
+
     return redirect(url_for('login_page'))
 
 
 
-# try using flask-login, flask-user, flask-SQLAlchemy
+# try using flask-login, flask-user
 
 
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login_page():
     if request.method == 'POST':
-        if request.form['username'] == 'admin' and request.form['password'] == 'password':
-            session['logged_in'] = True
-            return redirect(url_for('home_page'))
-        else:
-            return 'Invalid credentials. Please try again.'
+        # if request.form['username'] == 'admin' and request.form['password'] == 'password':
+        valid_user = False
+        users = User.query.all()
+        for user in users:
+            if user.username == request.form['username']:
+                valid_user = True
+                if user.password == request.form['password']:
+                    session['logged_in'] = True
+                    break
+                else:
+                    flask.flash('invalid password')
+                    break
+        if not valid_user:
+            flask.flash('invalid username')
+        return redirect(url_for('home_page'))
+
     return render_template('login_screen/index.html')
 
 @app.route('/courses')
