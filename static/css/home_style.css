@@ -69,6 +69,10 @@ nav ul a {
     text-decoration: none;
 }
 
+nav.courses {
+    width: 100%;
+}
+
 article {
     margin-left: 169px;
     padding: 1.5em;

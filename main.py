@@ -3,10 +3,15 @@ from flask_wtf import Form
 from flask_wtf.file import FileField
 from tools import s3_upload
 
+
+import flask
 from flask_sqlalchemy import SQLAlchemy
 
 
+
 app = Flask(__name__)
+db = SQLAlchemy(app)
+
 
 # AWS S3
 app.config['S3_KEY'] = 'AKIAJZ6GXZRQMZIAADIA'
@@ -18,9 +23,6 @@ app.config['SECRET_KEY'] = 'TestingSecretKey'
 # SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://CourseMate:password@localhost/CourseMate'
 
-
-db = SQLAlchemy(app)
-# from app import views, models
 
 class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
 
@@ -40,29 +42,16 @@ class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlal
     def __repr__(self):
         return '<title {}'.format(self.username)
 
-import flask
-@app.route('/testdb')  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
-def testdb():
-    admin = User('admin', 'password', 'email@admin.com')
-    user1 = User('user1', 'password1', 'email@user.com')
+class Course(db.Model):
+    __tablename__ = 'Class'
 
-    db.session.add(admin)
-    db.session.add(user1)
-    db.session.commit()
+    name = db.Column('Class_Name', db.String, primary_key=True)
 
-    results = User.query.all()
-    # return results[0]
+    def __init__(self, name):
+        self.name = name
 
-    json_results = []
-    for result in results:
-        d = {'id': result.id,
-             'username': result.username,
-             'password': result.password,
-             'email': result.email
-             }
-        json_results.append(d)
-
-    return flask.jsonify(items=json_results)
+    def __repr__(self):
+        return self.name
 
 
 class UploadForm(Form):
@@ -72,8 +61,8 @@ class UploadForm(Form):
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
-    return render_template('index.html')
+    test = 'sdfsd'
+    return render_template('index.html', username=test)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -100,16 +89,14 @@ def signup_page():
 
 
 # try using flask-login, flask-user
-
-
-
 @app.route('/login', methods = ['POST', 'GET'])
 def login_page():
     if request.method == 'POST':
-        # if request.form['username'] == 'admin' and request.form['password'] == 'password':
         valid_user = False
         users = User.query.all()
-        for user in users:
+        if request.form['username'] in users:
+            session['logged_in'] = True
+        for user in users:  # check if use exists. there's gotta be a better way though
             if user.username == request.form['username']:
                 valid_user = True
                 if user.password == request.form['password']:
@@ -124,11 +111,22 @@ def login_page():
 
     return render_template('login_screen/index.html')
 
+
+
 @app.route('/courses')
 def courses_page():
     if not session.get('logged_in'):return login_page()    # block access if not logged in
 
-    return render_template('courses.html')
+    courses = Course.query.all()
+
+    return render_template('courses.html', courses=courses)
+
+
+@app.route('/courses/<courseID>')
+def course_page(courseID):
+    if not session.get('logged_in'): return login_page()    # block access if not logged in
+    return render_template('course.html', title=courseID)
+
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():

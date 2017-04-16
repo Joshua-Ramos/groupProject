@@ -8,18 +8,14 @@
 
 <body>
     <div class="page">
+
         {% include "header.html" %}
         {% include "navigation.html" %}
         <article>
-            <nav class="courses">
-                {% for course in courses %}
-                    <li><a href="courses/{{course}}" >{{ course }}</a></li>
-
-
-                {% endfor %}
-            </nav>
+            <h1> {{ title }} </h1>
         </article>
         {% include "footer.html" %}
+
     </div>
 
 </body>

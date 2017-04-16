@@ -1,6 +1,8 @@
 shell> sudo apt-get update
 shell> sudo apt get upgrade
 shell> sudo apt-get install mysql-server
+shell> apt-get install python-mysqldb
+
 
 shell> sudo mysql -u root -p
 
@@ -16,4 +18,3 @@ mysql> source groupProject/SQL/populate_User.sql;
 
 mysql> quit;
 
-shell> apt-get install python-mysqldb
