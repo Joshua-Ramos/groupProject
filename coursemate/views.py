@@ -4,9 +4,9 @@ from flask import render_template, session, request, redirect, url_for, flash
 
 from .models import User
 from .models import Course
+from .models import db
 from .forms import UploadForm
 from .tools import s3_upload
-
 
 
 @app.route('/bstest')
@@ -35,6 +35,7 @@ def signup_page():
             db.session.add(new_user)
             db.session.commit()
             session['logged_in'] = True
+            session['username'] = new_user.username
             return redirect(url_for('home_page'))
         else:
             flask.flash('username is already in use')
