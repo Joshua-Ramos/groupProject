@@ -1,17 +1,22 @@
-INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location, User_ID)
-            VALUES("Amogh", "Jahagirdar", "AmoghUsername", "BcryptedAmoghPassword", "Amogh.Jahagirdar@Colorado.edu", "HashedAmoghPhotoLocationAWS", 1);
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("Amogh", "Jahagirdar", "AmoghUsername", "BcryptedAmoghPassword", "Amogh.Jahagirdar@Colorado.edu", "HashedAmoghPhotoLocationAWS");
 
-INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location, User_ID)
-            VALUES("Joshua", "Ramos", "JoshuaUsername", "BcryptedJoshuaPassword", "Joshua.Ramos@Colorado.edu", "HashedJoshuaPhotoLocationAWS", 2);
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("Joshua", "Ramos", "JoshuaUsername", "BcryptedJoshuaPassword", "Joshua.Ramos@Colorado.edu", "HashedJoshuaPhotoLocationAWS");
 
-INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location, User_ID)
-            VALUES("Elliott", "Shugerman", "ElliottUsername", "BcryptedElliottPassword", "Elliott.Shugerman@Colorado.edu", "HashedElliottPhotoLocationAWS", 3);
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("Elliott", "Shugerman", "ElliottUsername", "BcryptedElliottPassword", "Elliott.Shugerman@Colorado.edu", "HashedElliottPhotoLocationAWS");
 
-INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location, User_ID)
-            VALUES("Alexander", "Fisher", "AlexanderUsername", "BcryptedAlexanderPassword", "Alexander.M.Fisher@Colorado.edu", "HashedAlexanderPhotoLocationAWS", 4);
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("Alexander", "Fisher", "AlexanderUsername", "BcryptedAlexanderPassword", "Alexander.M.Fisher@Colorado.edu", "HashedAlexanderPhotoLocationAWS");
 
-INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location, User_ID)
-            VALUES("Ruben", "Vargas", "RubenUsername", "BcryptedRubenPassword", "Ruben.Vargas@Colorado.edu", "HashedRubenPhotoLocationAWS", 5);
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("Ruben", "Vargas", "RubenUsername", "BcryptedRubenPassword", "Ruben.Vargas@Colorado.edu", "HashedRubenPhotoLocationAWS");
+
+INSERT INTO User(First_Name, Last_Name, Username, Password, Email, Photo_Location)
+            VALUES("ad", "min", "admin", "password", "ad@min.edu", "HashedRubenPhotoLocationAWS");
+
+
 
 
 INSERT INTO File(Location, File_Name, User_ID, Uploaded, File_ID)
@@ -30,6 +35,7 @@ INSERT INTO File(Location, File_Name, User_ID, Uploaded, File_ID)
             VALUES("SoftwareDevNotes1Location", "SoftwareNotes.txt", 3, "2017-03-10", 5);
 
 
+
 INSERT INTO Class(Class_Name, Class_ID, Instructor_First, Instructor_Last, CA_First, CA_Last)
             VALUES("Software Development and Tools", 3308, "Alan", "Paradise", "Yogitha", "Mahadasu");
 
@@ -41,6 +47,8 @@ INSERT INTO Class(Class_Name, Class_ID, Instructor_First, Instructor_Last, CA_Fi
 
 INSERT INTO Class(Class_Name, Class_ID, Instructor_First, Instructor_Last, CA_First, CA_Last)
             VALUES("Discrete Structures", 2824, "Mike", "Eisenberg", "George", "Polya");
+
+
 
 
 INSERT INTO Post(Post_Name, File_ID, User_ID, Class_ID, Time, Post_Text)

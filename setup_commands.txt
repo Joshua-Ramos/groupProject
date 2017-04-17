@@ -1,20 +1,17 @@
+shell> cd groupProject
 shell> sudo apt-get update
 shell> sudo apt get upgrade
 shell> sudo apt-get install mysql-server
 shell> apt-get install python-mysqldb
 
-
 shell> sudo mysql -u root -p
-
-mysql> CREATE USER 'CourseMate'@'localhost' IDENTIFIED BY 'password';
+mysql> create user 'CourseMate'@'localhost' IDENTIFIED BY 'password';
 mysql> grant all privileges on * . * to 'CourseMate'@'localhost';
-
-
 mysql> quit;
 
 shell> mysql -u CourseMate -p
-mysql> source groupProject/SQL/database_init.sql;
-mysql> source groupProject/SQL/populate_User.sql;
-
+mysql> source SQL/database_init.sql;
+mysql> source SQL/populate.sql;
 mysql> quit;
 
+shell> python3 run.py
