@@ -1,5 +1,4 @@
 class DevConfig:
-    DEBUG = True
     DEVELOPTMENT = True
 
     # AWS S3
