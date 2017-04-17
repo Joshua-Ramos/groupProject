@@ -57,6 +57,9 @@ class Course(db.Model):
 class UploadForm(Form):
     example = FileField()
 
+@app.route('/bstest')
+def bstest():
+    return render_template('bootstrap.html')
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
