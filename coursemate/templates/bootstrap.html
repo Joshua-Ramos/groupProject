@@ -9,11 +9,10 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>CourseMate</title>
+    <title>CourseMate | bootsrap test</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <!-- A couple theme options -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-h21C2fcDk/eFsW9sC9h0dhokq5pDinLNklTKoxIZRUn3+hvmgQSffLLQ4G4l2eEr" crossorigin="anonymous">
@@ -55,19 +54,19 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Upload</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+
           </ul>
+          <div class="col-sm-3 col-md-3">
+              <form class="navbar-form" role="search">
+              <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search" name="q">
+                  <div class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                  </div>
+              </div>
+              </form>
+          </div>
+
           <ul class="nav navbar-nav navbar-right">
             <!--<li><a href="../navbar/">Default</a></li>-->
             <li><a href="../navbar-static-top/">Settings</a></li>
@@ -77,20 +76,88 @@
       </div>
     </nav>
 
-    <div class="content">
-        <article>
-            <h1>Content</h1>
-            <p>and whatnot.</p>
 
-        </article>
+    <div class="padder">
 
-    </div> <!-- /content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                <h1> Your Courses</h1>
+                <br>
+
+                  <div class="card">
+                      <div class="card-title" style="padding-left: 1em;">
+                        <h4>CSCI 3308</h4>
+                      </div>
+                      <div class="card-block">
+                        Software Engineering Methods and Tools
+                      </div>
+                  </div>
+
+                  <div class="card">
+                      <div class="card-title" style="padding-left: 1em;">
+                        CSCI 3104
+                      </div>
+                      <div class="card-block">
+                        Algorithms
+                      </div>
+                  </div>
+
+                  <div class="card">
+                      <div class="card-title" style="padding-left: 1em;">
+                        TITLE 1234
+                      </div>
+                      <div class="card-block">
+                        Description
+                      </div>
+                  </div>
+
+
+
+                </div>
+
+                <div class="col-md-7">
+
+                    <h1>Welcome, [user]!</h1>
+
+                    <br>
+
+                    <div class="card">
+                      <div class="card-block">Somone posted a new thing in that one class</div>
+                    </div>
+
+                    <div class="card">
+                      <div class="card-block">So and soresponded to your post</div>
+                    </div>
+
+                    <div class="card">
+                      <div class="card-block">etc</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>  <!-- end of row -->
+
+
+    </div>  <!-- end of container -->
+
+
+      </div>  <!-- end of padder -->
+
 
     <div id="footer">
         <div class="navbar-fixed-bottom">
-            <center><p>Copyright &copy; CourseMate.com</p></center>
+            <p>Copyright &copy; CourseMate.com</p>
         </div>
     </div>
+
+
+
+
+
+
+
 
 
 
