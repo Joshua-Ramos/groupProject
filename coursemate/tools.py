@@ -1,4 +1,3 @@
-
 from uuid import uuid4
 import boto
 import os.path

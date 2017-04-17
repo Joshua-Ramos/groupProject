@@ -1,61 +1,13 @@
-from flask import Flask, render_template, flash, request, session, redirect, url_for
-from flask_wtf import Form
-from flask_wtf.file import FileField
-from tools import s3_upload
-
-
 import flask
-from flask_sqlalchemy import SQLAlchemy
+from flask import current_app as app
+from flask import render_template, session, request, redirect, url_for, flash
+
+from .models import User
+from .models import Course
+from .forms import UploadForm
+from .tools import s3_upload
 
 
-
-app = Flask(__name__)
-db = SQLAlchemy(app)
-
-
-# AWS S3
-app.config['S3_KEY'] = 'AKIAJZ6GXZRQMZIAADIA'
-app.config['S3_SECRET'] = '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'
-app.config['S3_BUCKET'] = 'coursemat'
-app.config['S3_UPLOAD_DIRECTORY'] = 'Testing'
-app.config['SECRET_KEY'] = 'TestingSecretKey'
-
-# SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://CourseMate:password@localhost/CourseMate'
-
-
-class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlalchemy-connect-to-mysql-database
-
-    __tablename__ = 'User'
-
-    id = db.Column('User_ID', db.Integer, primary_key=True)
-    username = db.Column('Username', db.String, nullable=False)
-    password = db.Column('Password', db.String, nullable=False)
-    email = db.Column('Email', db.String, nullable=False)
-
-    def __init__(self, username, password, email):
-        self.username = username
-        self.password = password
-        self.email = email
-
-
-    def __repr__(self):
-        return '<title {}'.format(self.username)
-
-class Course(db.Model):
-    __tablename__ = 'Class'
-
-    name = db.Column('Class_Name', db.String, primary_key=True)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return self.name
-
-
-class UploadForm(Form):
-    example = FileField()
 
 @app.route('/bstest')
 def bstest():
@@ -64,8 +16,8 @@ def bstest():
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-    test = 'sdfsd'
-    return render_template('index.html', username=test)
+    name = session.get('username')
+    return render_template('index.html', username=name)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -104,6 +56,7 @@ def login_page():
                 valid_user = True
                 if user.password == request.form['password']:
                     session['logged_in'] = True
+                    session['username'] = user.username
                     break
                 else:
                     flask.flash('invalid password')
@@ -152,7 +105,3 @@ def about_page():
 def logout():
     session['logged_in'] = False
     return login_page()
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

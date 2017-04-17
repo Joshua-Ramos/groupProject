@@ -1,2 +1,2 @@
 
-See Readme.pdf
+See milestones/README.pdf 
