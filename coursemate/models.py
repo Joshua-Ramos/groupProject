@@ -13,7 +13,8 @@ class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlal
     password = db.Column('Password', db.String, nullable=False)
     email = db.Column('Email', db.String, nullable=False)
 
-    def __init__(self, username, password, email):
+    def __init__(self, id, username, password, email):
+        self.id = id
         self.username = username
         self.password = password
         self.email = email
@@ -26,9 +27,35 @@ class Course(db.Model):
     __tablename__ = 'Class'
 
     name = db.Column('Class_Name', db.String, primary_key=True)
+    id = db.Column('Class_ID', db.Integer)
 
-    def __init__(self, name):
+    def __init__(self, name, id):
         self.name = name
+        self.id = id
+
+    def __repr__(self):
+        return self.name
+
+
+class Post(db.Model):
+    __tablename__ = 'Post'
+
+    title = db.Column('Post_Name', db.String, primary_key=True, nullable=True)
+    course = db.Column('Class_ID', db.String, primary_key=True, nullable=False)
+    user = db.Column('User_ID', db.String, primary_key=True, nullable=False)
+    content = db.Column('Post_Text', db.String, nullable=False)
+    post_time = db.Column('Time', db.Date, nullable=False)
+
+
+
+
+
+    def __init__(self, title, course, user, content, post_time):
+        self.title = title
+        self.course = course
+        self.user = user
+        self.content = content
+        self.post_time = post_time
 
     def __repr__(self):
         return self.name

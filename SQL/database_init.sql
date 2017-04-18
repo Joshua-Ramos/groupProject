@@ -37,5 +37,5 @@ CREATE TABLE Post(
   Class_ID INTEGER,
   Time DATE,
   Post_Text VARCHAR(60000),
-  PRIMARY KEY(Post_Name, File_ID, Class_ID, Time, User_ID)
+  PRIMARY KEY(Post_Name, Class_ID, Time, User_ID)
 );

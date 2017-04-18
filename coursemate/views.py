@@ -6,6 +6,7 @@ from flask import render_template, session, request, redirect, url_for, flash
 
 from .models import User
 from .models import Course
+from .models import Post
 from .models import db
 from .forms import UploadForm
 from .tools import s3_upload
@@ -113,11 +114,29 @@ def courses_page():
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
+import time
+@app.route('/courses/<course_name>', methods = ['POST', 'GET'])
+def course_page(course_name):
+    course = Course.query.filter_by(name=course_name).all()[0]  # hacky but good enough  for now (milestone 5)
+    course_id = course.id
 
-@app.route('/courses/<courseID>')
-def course_page(courseID):
+    if request.method == 'POST':
+        post_title  = request.form['title']
+        post_content = request.form['content']
+        username = session['username']
+        userid = User.query.filter_by(username=username)[0].id
+        post_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        new_post = Post(post_title, course_id, userid, post_content, post_time)
+        db.session.add(new_post)
+        db.session.commit()
+
+
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-    return render_template('course.html', title=courseID)
+
+    posts = Post.query.filter_by(course=course_id).all()
+    return render_template('course.html', title=course_name, posts=posts)
+
+
 
 
 @app.route('/upload', methods = ['POST', 'GET'])

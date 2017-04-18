@@ -18,6 +18,10 @@ div.page {
     /*border: 1px solid Black;*/
 }
 
+div.post {
+    border: 2px solid grey;
+}
+
 div.border {
     width: 100%;
     border: 1px solid black;
@@ -72,6 +76,11 @@ nav ul a {
 nav.courses {
     width: 100%;
 }
+
+nav.posts {
+    width: 100%;
+}
+
 
 article {
     margin-left: 169px;
