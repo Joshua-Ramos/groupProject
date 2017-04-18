@@ -1,6 +1,6 @@
 import flask
-from helpers.login_helpers import acceptable_username
-from helpers.login_helpers import acceptable_password
+from .helpers.login_helpers import acceptable_username
+from .helpers.login_helpers import acceptable_password
 from flask import current_app as app
 from flask import render_template, session, request, redirect, url_for, flash
 
@@ -13,7 +13,7 @@ from .tools import s3_upload
 
 @app.route('/bstest')
 def bstest():
-    return render_template('bootstrap.html')
+    return render_template('home_bootstrap.html')
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
@@ -27,23 +27,23 @@ def signup_page():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-	######TO DO REPLACE ASSERT WITH HTML UPDATES TO USER####
-	assert(acceptable_username(username) == True)
-	assert(acceptable_password(password) == True)
-        email = request.form['email address']
-        new_user = User(username, password, email)
-        available = True
-        for user in User.query.all():
-            if new_user.username == user.username:
-                available = False
-        if available:
-            db.session.add(new_user)
-            db.session.commit()
-            session['logged_in'] = True
-            session['username'] = new_user.username
-            return redirect(url_for('home_page'))
-        else:
-            flask.flash('username is already in use')
+    ######TO DO REPLACE ASSERT WITH HTML UPDATES TO USER####
+    assert(acceptable_username(username) == True)
+    assert(acceptable_password(password) == True)
+    email = request.form['email address']
+    new_user = User(username, password, email)
+    available = True
+    for user in User.query.all():
+        if new_user.username == user.username:
+            available = False
+    if available:
+        db.session.add(new_user)
+        db.session.commit()
+        session['logged_in'] = True
+        session['username'] = new_user.username
+        return redirect(url_for('home_page'))
+    else:
+        flask.flash('username is already in use')
 
     return redirect(url_for('login_page'))
 
@@ -72,6 +72,30 @@ def login_page():
         return redirect(url_for('home_page'))
 
     return render_template('login_screen/index.html')
+
+@app.route('/login_edit', methods = ['POST', 'GET'])
+def login_page_edit():
+    if request.method == 'POST':
+        valid_user = False
+        users = User.query.all()
+        if request.form['username'] in users:
+            session['logged_in'] = True
+        for user in users:  # check if use exists. there's gotta be a better way though
+            if user.username == request.form['username']:
+                valid_user = True
+                if user.password == request.form['password']:
+                    session['logged_in'] = True
+                    session['username'] = user.username
+                    break
+                else:
+                    flask.flash('invalid password')
+                    break
+        if not valid_user:
+            flask.flash('invalid username')
+        return redirect(url_for('home_page'))
+
+    return render_template('login_screen/index_edit.html')
+
 
 
 
