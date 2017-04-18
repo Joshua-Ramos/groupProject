@@ -10,6 +10,14 @@
     <div class="page">
         {% include "header.html" %}
         {% include "navigation.html" %}
+
+        <div style="float:right;">
+            <form action="/courses" method="POST">
+                <input type="text" placeholder="course title" name="input">
+                <input type="submit" name="my-form" value="add course">
+            </form>
+        </div>
+
         <article>
             <nav class="courses">
                 {% for course in courses %}

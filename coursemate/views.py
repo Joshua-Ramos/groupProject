@@ -99,12 +99,18 @@ def login_page_edit():
 
 
 
-@app.route('/courses')
+@app.route('/courses', methods=['POST', 'GET'])
 def courses_page():
     if not session.get('logged_in'):return login_page()    # block access if not logged in
 
-    courses = Course.query.all()
+    if request.method == 'POST':
+        course_name = request.form['input']
+        flask.flash(course_name)
+        new_course = Course(course_name)
+        db.session.add(new_course)
+        db.session.commit()
 
+    courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
 

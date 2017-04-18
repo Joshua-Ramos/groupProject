@@ -20,13 +20,14 @@ CREATE TABLE User (
 
 CREATE TABLE File(Location VARCHAR(100), File_Name VARCHAR(150), User_ID INTEGER, Uploaded DATE, File_ID INTEGER, PRIMARY KEY(FILE_ID));
 
-CREATE TABLE Class(Class_Name VARCHAR(150),
+CREATE TABLE Class(
+  Class_Name VARCHAR(150),
   Class_ID INTEGER,
   Instructor_First VARCHAR(35),
   Instructor_Last VARCHAR(35),
   CA_First VARCHAR(35),
   CA_Last VARCHAR(35),
-  PRIMARY KEY(Class_ID, CA_First, CA_Last)
+  PRIMARY KEY(Class_Name)
 );
 
 CREATE TABLE Post(
