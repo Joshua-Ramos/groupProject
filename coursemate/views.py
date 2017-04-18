@@ -1,4 +1,6 @@
 import flask
+from helpers.login_helpers import acceptable_username
+from helpers.login_helpers import acceptable_password
 from flask import current_app as app
 from flask import render_template, session, request, redirect, url_for, flash
 
@@ -25,6 +27,9 @@ def signup_page():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+	######TO DO REPLACE ASSERT WITH HTML UPDATES TO USER####
+	assert(acceptable_username(username) == True)
+	assert(acceptable_password(password) == True)
         email = request.form['email address']
         new_user = User(username, password, email)
         available = True
