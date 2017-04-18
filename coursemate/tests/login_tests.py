@@ -2,7 +2,7 @@ import unittest
 import sys
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from helpers.login_helpers import acceptable_username, acceptable_password
+from coursemate.helpers.login_helpers import acceptable_username, acceptable_password
 
 class LoginTest(unittest.TestCase):
 
