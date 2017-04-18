@@ -11,7 +11,7 @@ from .forms import UploadForm
 from .tools import s3_upload
 
 
-@app.route('/bstest')
+@app.route('/home_edit')
 def bstest():
     return render_template('home_bootstrap.html')
 
