@@ -2,10 +2,11 @@ shell> cd groupProject
 shell> sudo apt-get update
 shell> sudo apt get upgrade
 shell> sudo apt-get install mysql-server
-shell> apt-get install python-mysqldb
+shell> sudo apt-get install python-mysqldb
 
 shell> pip3 install flask
 shell> pip3 install pymysql
+shell> pip3 install flask-wtf
 shell> pip3 install Flask-SQLAlchemy
 
 shell> sudo mysql -u root -p
