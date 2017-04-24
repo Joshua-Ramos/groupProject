@@ -7,7 +7,7 @@ shell> sudo apt-get install python-mysqldb
 shell> pip3 install flask
 shell> pip3 install pymysql
 shell> pip3 install flask-wtf
-shell> pip3 install Flask-SQLAlchemy
+shell> pip3 install flask-sqlalchemy
 shell
 
 shell> sudo mysql -u root -p

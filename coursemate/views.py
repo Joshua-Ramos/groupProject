@@ -1,3 +1,5 @@
+import time
+
 import flask
 from .helpers.login_helpers import acceptable_username
 from .helpers.login_helpers import acceptable_password
@@ -16,11 +18,12 @@ from .tools import s3_upload
 def bstest():
     return render_template('home_bootstrap.html')
 
+
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
     name = session.get('username')
-    return render_template('index.html', username=name)
+    return render_template('home.html', username=name)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -45,9 +48,7 @@ def signup_page():
         return redirect(url_for('home_page'))
     else:
         flask.flash('username is already in use')
-
     return redirect(url_for('login_page'))
-
 
 
 # try using flask-login, flask-user
@@ -71,8 +72,8 @@ def login_page():
         if not valid_user:
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
+    return render_template('login_screen/index.html')
 
-    return render_template('login_screen/index_edit.html')
 
 @app.route('/login_edit', methods = ['POST', 'GET'])
 def login_page_edit():
@@ -89,37 +90,31 @@ def login_page_edit():
                     session['username'] = user.username
                     break
                 else:
-                    flask.flash('invalid password')
+                    flask.flash('<h1>invalid password</h1>')
                     break
         if not valid_user:
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
-
     return render_template('login_screen/index_edit.html')
-
-
 
 
 @app.route('/courses', methods=['POST', 'GET'])
 def courses_page():
     if not session.get('logged_in'):return login_page()    # block access if not logged in
-
     if request.method == 'POST':
         course_name = request.form['input']
         flask.flash(course_name)
         new_course = Course(course_name)
         db.session.add(new_course)
         db.session.commit()
-
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
-import time
+
 @app.route('/courses/<course_name>', methods = ['POST', 'GET'])
 def course_page(course_name):
     course = Course.query.filter_by(name=course_name).all()[0]  # hacky but good enough  for now (milestone 5)
     course_id = course.id
-
     if request.method == 'POST':
         post_title  = request.form['title']
         post_content = request.form['content']
@@ -129,20 +124,14 @@ def course_page(course_name):
         new_post = Post(post_title, course_id, userid, post_content, post_time)
         db.session.add(new_post)
         db.session.commit()
-
-
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     posts = Post.query.filter_by(course=course_id).all()
     return render_template('course.html', title=course_name, posts=posts)
-
-
 
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     form = UploadForm()
     if form.validate_on_submit():
         output = s3_upload(form.example)
@@ -153,8 +142,8 @@ def upload_page():
 @app.route('/about')
 def about_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     return render_template('about.html')
+
 
 @app.route('/logout')
 def logout():

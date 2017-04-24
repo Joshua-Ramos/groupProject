@@ -1,5 +1,0 @@
-flask-login==0.4
-flask-user==0.6.9 # pin flask_user to a specific version
-flask-SQLAlchemy
-
-pymysql

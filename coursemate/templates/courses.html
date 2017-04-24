@@ -1,33 +1,69 @@
 <!DOCTYPE html>
 <head>
-    <title>CourseMate | Courses</title>
-    <link rel="stylesheet" href="../../static/css/home_style.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
 
-    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+  <title>CourseMate | About</title>
+
+  {% include "cdn_links.html" %}
+
 </head>
 
 <body>
-    <div class="page">
-        {% include "header.html" %}
-        {% include "navigation.html" %}
+{% include "components/navbar.html" %}
+
+
+<div class="padder">  <!-- keeps content out from under navbar -->
+
+  <div class="container"> <!-- can't remember why this is here -->
+
+    <div class="row">     <!-- all columns must be in rows to work -->
+
+      <div class="col-md-3">  <!-- left column -->
+
+
+        {% include "components/nav_courses.html" %}
+
+      </div>
+
+      <div class="col-md-7">  <!-- right column -->
+
+        <br><br><br><br><br> <!-- i'm sure there's a better way to do this -->
+
 
         <div style="float:right;">
-            <form action="/courses" method="POST">
-                <input type="text" placeholder="course title" name="input">
-                <input type="submit" name="my-form" value="add course">
-            </form>
+          <form action="/courses" method="POST">
+            <input type="text" placeholder="course title" name="input">
+            <input type="submit" name="my-form" value="add course">
+          </form>
         </div>
 
         <article>
-            <nav class="courses">
-                {% for course in courses %}
-                    <li><a href="courses/{{course}}" >{{ course }}</a></li>
+          <nav class="courses">
+            {% for course in courses %}
+            <li><a href="courses/{{course}}" >{{ course }}</a></li>
 
 
-                {% endfor %}
-            </nav>
+            {% endfor %}
+          </nav>
         </article>
-        {% include "footer.html" %}
-    </div>
+      </div>
+
+    </div>  <!-- end of row -->
+
+  </div>  <!-- end of container -->
+
+</div>  <!-- end of padder -->
+
+
+{% include "components/footer.html" %}
 
 </body>
+
+
+

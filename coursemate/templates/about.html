@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CourseMate | About Us</title>
-  <link rel="stylesheet" href="../../static/css/home_style.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>CourseMate | About</title>
+
+  {% include "cdn_links.html" %}
+</head>
+
 
 <body>
 
-<div class="page">
+{% include "components/navbar.html" %}
 
-  {% include "header.html" %}
+<div class="padder">  <!-- keeps content out from under navbar -->
 
-  {% include "navigation.html" %}
+  <div class="container"> <!-- can't remember why this is here -->
+
+    <div class="row">     <!-- all columns must be in rows to work -->
+
+      <div class="col-md-3">  <!-- left column -->
+
+        {% include "components/nav_courses.html" %}
+
+      </div>
+
+      <div class="col-md-7">  <!-- right column -->
+        <h1>About Us</h1>
+        <p>We're a group of students who are currently enrolled in CSCI 3308 at CU Boulder.</p>
+
+      </div>
+
+    </div>  <!-- end of row -->
+
+  </div>  <!-- end of container -->
+
+</div>  <!-- end of padder -->
 
 
+{% include "components/footer.html" %}
 
-  <article>
-    <h1>About Us</h1>
-    <p>We're a group of students who are currently enrolled in CSCI 3308 at CU Boulder.</p>
-
-  </article>
-
-  {% include "footer.html" %}
-
-</div>
 
 </body>
 </html>

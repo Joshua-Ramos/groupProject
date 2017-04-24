@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../favicon.ico">
 
-  <title>CourseMate | About</title>
+  <title>CourseMate | Home</title>
 
   {% include "cdn_links.html" %}
 
@@ -32,24 +33,7 @@
 
       <div class="col-md-7">  <!-- right column -->
 
-        <br><br><br><br><br> <!-- i'm sure there's a better way to do this -->
-
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class=flashes>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-
-        <form method="POST" enctype="multipart/form-data" action="/upload" margin="auto">
-          {{ form.csrf_token }}
-          {{ form.example }}
-          <input type="submit" value="Go">
-        </form>
+        {% include "components/feed.html" %}
 
       </div>
 
@@ -63,5 +47,21 @@
 {% include "components/footer.html" %}
 
 
-</body>
 
+
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
