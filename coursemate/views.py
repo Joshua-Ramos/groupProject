@@ -117,6 +117,13 @@ def upload_page():
     if form.validate_on_submit():
         output = s3_upload(form.example)
         flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
+        course_id = request.form['course_id']
+        user_id = User.query.filter_by(username = session['username'])[0].id
+        assert(course_id is not None)
+        new_file = File(name = form.example.data.filename, course_id = course_id, user_id = user_id)
+        db.session.add(new_file)
+        db.session.commit()
+
     return render_template('upload.html', form=form)
 
 

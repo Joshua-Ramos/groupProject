@@ -21,9 +21,11 @@ def s3_upload(source_file, upload_dir=None, acl='public-read'):
     if upload_dir is None:
         upload_dir = app.config["S3_UPLOAD_DIRECTORY"]
 
-    source_filename = secure_filename(source_file.data.filename)
-    source_name = os.path.splitext(source_filename)[0]
-    destination_filename = source_name
+    filename = source_file.data.filename.replace('_','')
+    filename = source_file.data.filename.replace(' ', '')
+    source_filename = secure_filename(filename)
+
+    destination_filename = source_filename
 
     # Connect to S3 and upload file.
     conn = boto.connect_s3(app.config["S3_KEY"], app.config["S3_SECRET"])
