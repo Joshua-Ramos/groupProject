@@ -72,7 +72,7 @@ def login_page():
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
 
-    return render_template('login_screen/index.html')
+    return render_template('login_screen/index_edit.html')
 
 @app.route('/login_edit', methods = ['POST', 'GET'])
 def login_page_edit():

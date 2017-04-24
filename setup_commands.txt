@@ -8,6 +8,7 @@ shell> pip3 install flask
 shell> pip3 install pymysql
 shell> pip3 install flask-wtf
 shell> pip3 install Flask-SQLAlchemy
+shell
 
 shell> sudo mysql -u root -p
 mysql> create user 'CourseMate'@'localhost' IDENTIFIED BY 'password';
