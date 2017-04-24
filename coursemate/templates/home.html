@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>CourseMate | Home</title>
+
+  {% include "cdn_links.html" %}
+
+</head>
+
+<body>
+
+{% include "components/navbar.html" %}
+
+<div class="padder">  <!-- keeps content out from under navbar -->
+
+  <div class="container"> <!-- can't remember why this is here -->
+
+    <div class="row">     <!-- all columns must be in rows to work -->
+
+      <div class="col-md-3">  <!-- left column -->
+
+        {% include "components/nav_courses.html" %}
+
+      </div>
+
+      <div class="col-md-7">  <!-- right column -->
+
+        {% include "components/feed.html" %}
+
+      </div>
+
+    </div>  <!-- end of row -->
+
+  </div>  <!-- end of container -->
+
+</div>  <!-- end of padder -->
+
+
+{% include "components/footer.html" %}
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

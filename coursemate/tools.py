@@ -34,3 +34,12 @@ def s3_upload(source_file, upload_dir=None, acl='public-read'):
     sml.set_acl(acl)
 
     return destination_filename
+
+def s3_download(filename):
+    upload_dir = app.config["S3_UPLOAD_DIRECTORY"]
+    conn = boto.connect_s3(app.config["S3_KEY"], app.config["S3_SECRET"])
+    bucket = conn.get_bucket(app.config["S3_BUCKET"])
+    keyname = "/".join([upload_dir, filename])
+    key = bucket.get_key(keyname)
+    key.get_contents_to_filename(filename)
+    

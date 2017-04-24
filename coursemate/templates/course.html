@@ -25,6 +25,11 @@
                     </div>
                 {% endfor %}
 
+   		{% for file in files %}
+                    <a href = "{{title}}/files/{{file.name}}">{{file.name}} </a>
+                {% endfor %}
+
+
         </article>
 
         <div>

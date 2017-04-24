@@ -1,3 +1,5 @@
+import time
+
 import flask
 from .helpers.login_helpers import acceptable_username
 from .helpers.login_helpers import acceptable_password
@@ -7,14 +9,12 @@ from flask import render_template, session, request, redirect, url_for, flash
 from .models import User
 from .models import Course
 from .models import Post
+from .models import File
 from .models import db
 from .forms import UploadForm
-from .tools import s3_upload
+from .tools import s3_upload, s3_download
 
 
-@app.route('/home_edit')
-def bstest():
-    return render_template('home_bootstrap.html')
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
@@ -45,9 +45,7 @@ def signup_page():
         return redirect(url_for('home_page'))
     else:
         flask.flash('username is already in use')
-
     return redirect(url_for('login_page'))
-
 
 
 # try using flask-login, flask-user
@@ -71,55 +69,26 @@ def login_page():
         if not valid_user:
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
-
     return render_template('login_screen/index.html')
-
-@app.route('/login_edit', methods = ['POST', 'GET'])
-def login_page_edit():
-    if request.method == 'POST':
-        valid_user = False
-        users = User.query.all()
-        if request.form['username'] in users:
-            session['logged_in'] = True
-        for user in users:  # check if use exists. there's gotta be a better way though
-            if user.username == request.form['username']:
-                valid_user = True
-                if user.password == request.form['password']:
-                    session['logged_in'] = True
-                    session['username'] = user.username
-                    break
-                else:
-                    flask.flash('invalid password')
-                    break
-        if not valid_user:
-            flask.flash('invalid username')
-        return redirect(url_for('home_page'))
-
-    return render_template('login_screen/index_edit.html')
-
-
 
 
 @app.route('/courses', methods=['POST', 'GET'])
 def courses_page():
     if not session.get('logged_in'):return login_page()    # block access if not logged in
-
     if request.method == 'POST':
         course_name = request.form['input']
         flask.flash(course_name)
         new_course = Course(course_name)
         db.session.add(new_course)
         db.session.commit()
-
     courses = Course.query.all()
     return render_template('courses.html', courses=courses)
 
-import time
+
 @app.route('/courses/<course_name>', methods = ['POST', 'GET'])
 def course_page(course_name):
     course = Course.query.filter_by(name=course_name).all()[0]  # hacky but good enough  for now (milestone 5)
     course_id = course.id
-
     if request.method == 'POST':
         post_title  = request.form['title']
         post_content = request.form['content']
@@ -129,20 +98,21 @@ def course_page(course_name):
         new_post = Post(post_title, course_id, userid, post_content, post_time)
         db.session.add(new_post)
         db.session.commit()
-
-
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     posts = Post.query.filter_by(course=course_id).all()
-    return render_template('course.html', title=course_name, posts=posts)
+    files = File.query.filter_by(course_id=course_id).all()
+    return render_template('course.html', title=course_name, posts=posts, files = files)
 
 
+@app.route('/courses/<course_name>/files/<file_name>', methods = ['GET'])
+def download_file(course_name, file_name):
+    s3_download(file_name)
+    return course_page(course_name)
 
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     form = UploadForm()
     if form.validate_on_submit():
         output = s3_upload(form.example)
@@ -153,8 +123,8 @@ def upload_page():
 @app.route('/about')
 def about_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
-
     return render_template('about.html')
+
 
 @app.route('/logout')
 def logout():
