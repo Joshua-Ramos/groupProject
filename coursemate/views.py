@@ -68,7 +68,7 @@ def login_page():
         if not valid_user:
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
-    return render_template('login_screen/index.html')
+    return render_template('index.html')
 
 
 @app.route('/courses', methods=['POST', 'GET'])

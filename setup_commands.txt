@@ -4,11 +4,11 @@ shell> sudo apt get upgrade
 shell> sudo apt-get install mysql-server
 shell> sudo apt-get install python-mysqldb
 
-shell> pip3 install flask
 shell> pip3 install pymysql
+
+shell> pip3 install flask
 shell> pip3 install flask-wtf
 shell> pip3 install flask-sqlalchemy
-shell
 
 shell> sudo mysql -u root -p
 mysql> create user 'CourseMate'@'localhost' IDENTIFIED BY 'password';
@@ -21,3 +21,5 @@ mysql> source SQL/populate.sql;
 mysql> quit;
 
 shell> python3 run.py
+
+open localhost:5000 in your web browser
