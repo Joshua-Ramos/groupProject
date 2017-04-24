@@ -2,12 +2,13 @@ class DevConfig:
     DEVELOPTMENT = True
 
     # AWS S3
-    S3_KEY = 'AKIAJZEMFZSJSSLIQJSQ'
-    S3_SECRET = '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'
+    ##NOTE PLEASE INSERT THE KEY AND SECRET BEFORE RUNNING
+    S3_KEY = ''
+    S3_SECRET = ''
+
     S3_BUCKET = 'coursemat' # typo?
     S3_UPLOAD_DIRECTORY = 'Testing'
     SECRET_KEY = 'TestingSecretKey'
 
     # SQL
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Jahag@123@localhost/CourseMate'
-    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://CourseMate:password@localhost/CourseMate'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://CourseMate:password@localhost/CourseMate'
