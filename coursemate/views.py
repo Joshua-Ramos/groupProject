@@ -14,10 +14,6 @@ from .forms import UploadForm
 from .tools import s3_upload
 
 
-@app.route('/home_edit')
-def bstest():
-    return render_template('home_bootstrap.html')
-
 
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
@@ -73,29 +69,6 @@ def login_page():
             flask.flash('invalid username')
         return redirect(url_for('home_page'))
     return render_template('login_screen/index.html')
-
-
-@app.route('/login_edit', methods = ['POST', 'GET'])
-def login_page_edit():
-    if request.method == 'POST':
-        valid_user = False
-        users = User.query.all()
-        if request.form['username'] in users:
-            session['logged_in'] = True
-        for user in users:  # check if use exists. there's gotta be a better way though
-            if user.username == request.form['username']:
-                valid_user = True
-                if user.password == request.form['password']:
-                    session['logged_in'] = True
-                    session['username'] = user.username
-                    break
-                else:
-                    flask.flash('<h1>invalid password</h1>')
-                    break
-        if not valid_user:
-            flask.flash('invalid username')
-        return redirect(url_for('home_page'))
-    return render_template('login_screen/index_edit.html')
 
 
 @app.route('/courses', methods=['POST', 'GET'])
