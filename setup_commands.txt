@@ -4,12 +4,16 @@ shell> sudo apt get upgrade
 shell> sudo apt-get install mysql-server
 shell> apt-get install python-mysqldb
 
+shell> pip3 install flask
+shell> pip3 install pymysql
+shell> pip3 install Flask-SQLAlchemy
+
 shell> sudo mysql -u root -p
 mysql> create user 'CourseMate'@'localhost' IDENTIFIED BY 'password';
 mysql> grant all privileges on * . * to 'CourseMate'@'localhost';
 mysql> quit;
 
-shell> mysql -u CourseMate -p
+shell> mysql -u CourseMate -p;
 mysql> source SQL/database_init.sql;
 mysql> source SQL/populate.sql;
 mysql> quit;
