@@ -8,6 +8,7 @@ from flask import render_template, session, request, redirect, url_for, flash
 
 from .models import User
 from .models import Course
+from .models import File
 from .models import Post
 from .models import db
 from .forms import UploadForm
@@ -30,6 +31,7 @@ def signup_page():
     ######TO DO REPLACE ASSERT WITH HTML UPDATES TO USER####
     assert(acceptable_username(username) == True)
     assert(acceptable_password(password) == True)
+    
     email = request.form['email address']
     new_user = User(username, password, email)
     available = True
@@ -75,9 +77,10 @@ def login_page():
 def courses_page():
     if not session.get('logged_in'):return login_page()    # block access if not logged in
     if request.method == 'POST':
-        course_name = request.form['input']
+        course_name = request.form['course_title']
+        course_id = request.form['course_id']
         flask.flash(course_name)
-        new_course = Course(course_name)
+        new_course = Course(name = course_name, class_id = course_id)
         db.session.add(new_course)
         db.session.commit()
     courses = Course.query.all()
@@ -87,7 +90,7 @@ def courses_page():
 @app.route('/courses/<course_name>', methods = ['POST', 'GET'])
 def course_page(course_name):
     course = Course.query.filter_by(name=course_name).all()[0]  # hacky but good enough  for now (milestone 5)
-    course_id = course.id
+    course_id = course.class_id
     if request.method == 'POST':
         post_title  = request.form['title']
         post_content = request.form['content']
@@ -98,9 +101,9 @@ def course_page(course_name):
         db.session.add(new_post)
         db.session.commit()
     if not session.get('logged_in'): return login_page()    # block access if not logged in
+    files = File.query.filter_by(course_id=course_id).all()
     posts = Post.query.filter_by(course=course_id).all()
-    return render_template('course.html', title=course_name, posts=posts)
-
+    return render_template('course.html', title=course_name, posts=posts, files = files)
 
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
@@ -109,8 +112,13 @@ def upload_page():
     if form.validate_on_submit():
         output = s3_upload(form.example)
         flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
+        course_id = request.form['course_id']
+        user_id = User.query.filter_by(username = session['username'])[0].id
+        assert(course_id is not None)
+        new_file = File(name = form.example.data.filename, course_id = course_id, user_id = user_id)
+        db.session.add(new_file)
+        db.session.commit()
     return render_template('upload.html', form=form)
-
 
 @app.route('/about')
 def about_page():
