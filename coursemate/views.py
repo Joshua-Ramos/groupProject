@@ -20,6 +20,12 @@ from .tools import s3_upload
 def home_page():
     if not session.get('logged_in'): return login_page()    # block access if not logged in
     name = session.get('username')
+    return render_template('Course_Mate_Home/Course_Mate_Home.html', username=name)
+
+@app.route('/feed', methods=['POST', 'GET'])
+def feed():
+    if not session.get('logged_in'): return login_page()    # block access if not logged in
+    name = session.get('username')
     return render_template('home.html', username=name)
 
 
