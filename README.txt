@@ -1,2 +1,0 @@
-
-See milestones/README.pdf 

@@ -1,0 +1,2 @@
+Make sure you get the html file located within the Course_Mate_Home folder. 
+It is the one that is most up to date.
