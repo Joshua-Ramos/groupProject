@@ -37,22 +37,23 @@
 
 
 
-          <form action="/courses" method="POST">
-            <input type="text" placeholder="Course Title" name="course_title">
-            <input type="text" placeholder="Course Id" name="course_id">
-            <input type="submit" name="my-form" value="add course">
-          </form>
-        </div>
+        <form action="/courses" method="POST">
+          <input type="text" placeholder="Course Title" name="course_title">
+          <input type="text" placeholder="Course Id" name="course_id">
+          <input type="submit" name="my-form" value="add course">
+        </form>
 
-        <article>
-          <nav class="courses">
-            {% for course in courses %}
-            <li><a href="courses/{{course}}" >{{ course }}</a></li>
+        <br>
+
+        <nav class="courses">
+          {% for course in courses %}
+          <li><a href="courses/{{course}}" >{{ course }}</a></li>
+          {% endfor %}
+        </nav>
+
+      </div>
 
 
-            {% endfor %}
-          </nav>
-        </article>
       </div>
 
     </div>  <!-- end of row -->

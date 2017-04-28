@@ -9,4 +9,5 @@ class DevConfig:
     SECRET_KEY = 'TestingSecretKey'
 
     # SQL
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost/CourseMate'
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost/CourseMate'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://CourseMate:password@localhost/CourseMate'
