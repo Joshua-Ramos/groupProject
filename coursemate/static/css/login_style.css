@@ -12,12 +12,20 @@ div.login-text {
   text-align: left;
 
 }
+img.logo{
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    height: 15%;
+    width: 35%;
 
+}
 login-text {
   color: white;
   /* offset-x | offset-y | blur-radius | color */
   text-shadow: 1px 1px 1px black;
-  /*font-size: 20pt;*/
+  font-size: 12pt;
+
 }
 
 span {
@@ -132,7 +140,7 @@ span {
 html {
   width: max-width;
   height: max-height;
-  background-image:url("login_images/books.jpeg");
+  background-image:url("login_images/library.jpeg");
   background-size: 100%; /* or contain depending on what you want */
   background-position: top right;
   background-repeat: no-repeat;
