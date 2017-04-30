@@ -1,6 +1,7 @@
 from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import hashlib
 
 db = SQLAlchemy(app)
 
@@ -14,8 +15,7 @@ class User(db.Model):  # http://stackoverflow.com/questions/29461959/flask-sqlal
     password = db.Column('Password', db.String, nullable=False)
     email = db.Column('Email', db.String, nullable=False)
 
-    def __init__(self, id, username, password, email):
-        self.id = id
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
         self.email = email
@@ -48,9 +48,6 @@ class Post(db.Model):
     post_time = db.Column('Time', db.Date, nullable=False)
 
 
-
-
-
     def __init__(self, title, course, user, content, post_time):
         self.title = title
         self.course = course
@@ -67,11 +64,13 @@ class File(db.Model):
 
     name = db.Column('File_Name', db.String, primary_key = True, nullable = False)
     uploaded = db.Column('Uploaded', db.Date, primary_key = False, nullable = False)
-    course_id = db.Column('course_id', db.Integer, primary_key = True, nullable = False)
+    course_id = db.Column('course_id', db.Integer, primary_key = False, nullable = False)
     user_id = db.Column('User_ID', db.Integer, primary_key = False, nullable = False)
+    file_id = db.Column('File_ID', db.Integer, primary_key = False, nullable = False)
 
     def __init__(self, name, course_id, user_id):
         self.name = name
         self.course_id = course_id
         self.user_id = user_id
         self.uploaded = datetime.utcnow()
+        self.file_id = abs(hash(name)) % (10 ** 8)

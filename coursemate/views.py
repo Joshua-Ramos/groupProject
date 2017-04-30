@@ -1,18 +1,17 @@
 import time
-
 import flask
 from .helpers.login_helpers import acceptable_username
 from .helpers.login_helpers import acceptable_password
 from flask import current_app as app
 from flask import render_template, session, request, redirect, url_for, flash
-
+from .filters import valid_course
 from .models import User
 from .models import Course
 from .models import File
 from .models import Post
 from .models import db
 from .forms import UploadForm
-from .tools import s3_upload
+from .tools import s3_upload, s3_download
 
 
 
@@ -35,23 +34,25 @@ def signup_page():
         username = request.form['username']
         password = request.form['password']
     ######TO DO REPLACE ASSERT WITH HTML UPDATES TO USER####
-    assert(acceptable_username(username) == True)
-    assert(acceptable_password(password) == True)
-    
-    email = request.form['email address']
-    new_user = User(username, password, email)
-    available = True
-    for user in User.query.all():
-        if new_user.username == user.username:
-            available = False
-    if available:
-        db.session.add(new_user)
-        db.session.commit()
-        session['logged_in'] = True
-        session['username'] = new_user.username
-        return redirect(url_for('home_page'))
-    else:
-        flask.flash('username is already in use')
+        assert(acceptable_username(username) == True)
+        assert(acceptable_password(password) == True)
+
+        email = request.form['email address']
+        new_user = User(username = username, password = password, email = email)
+        available = True
+        for user in User.query.all():
+            if new_user.username == user.username:
+                available = False
+        if available:
+            db.session.add(new_user)
+            db.session.commit()
+            session['logged_in'] = True
+            session['username'] = new_user.username
+            print("HERE!!!!!!!!!!!")
+            return redirect(url_for('home_page'))
+        else:
+            flask.flash('username is already in use')
+
     return redirect(url_for('login_page'))
 
 
@@ -111,19 +112,31 @@ def course_page(course_name):
     posts = Post.query.filter_by(course=course_id).all()
     return render_template('course.html', title=course_name, posts=posts, files = files)
 
+@app.route('/courses/<course_name>/files/<file_name>', methods = ['GET'])
+def download_file(course_name, file_name):
+    s3_download(file_name)
+    return course_page(course_name)
+
+
+
 @app.route('/upload', methods = ['POST', 'GET'])
 def upload_page():
-    if not session.get('logged_in'): return login_page()    # block access if not logged in
+    if not session.get('logged_in'):
+        return login_page()    # block access if not logged in
     form = UploadForm()
     if form.validate_on_submit():
         output = s3_upload(form.example)
-        flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
+        #flash('{src} uploaded to S3 as {dst}'.format(src=form.example.data.filename, dst=output))
         course_id = request.form['course_id']
         user_id = User.query.filter_by(username = session['username'])[0].id
-        assert(course_id is not None)
-        new_file = File(name = form.example.data.filename, course_id = course_id, user_id = user_id)
-        db.session.add(new_file)
-        db.session.commit()
+        if course_id is None or not valid_course(course_id):
+            error = "Please enter a valid Course ID"
+            return render_template("upload.html", error = error)
+        else:
+            new_file = File(name = form.example.data.filename, course_id = course_id, user_id = user_id)
+            db.session.add(new_file)
+            db.session.commit()
+
     return render_template('upload.html', form=form)
 
 @app.route('/about')

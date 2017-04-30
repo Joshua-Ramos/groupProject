@@ -5,6 +5,7 @@ from flask import current_app as app
 from werkzeug.utils import secure_filename
 
 
+
 def s3_upload(source_file, upload_dir=None, acl='public-read'):
     """ Uploads WTForm File Object to Amazon S3
         Expects following app.config attributes to be set:
@@ -21,9 +22,11 @@ def s3_upload(source_file, upload_dir=None, acl='public-read'):
     if upload_dir is None:
         upload_dir = app.config["S3_UPLOAD_DIRECTORY"]
 
-    source_filename = secure_filename(source_file.data.filename)
-    source_name = os.path.splitext(source_filename)[0]
-    destination_filename = source_name
+    filename = source_file.data.filename.replace('_','')
+    filename = source_file.data.filename.replace(' ', '')
+    source_filename = secure_filename(filename)
+
+    destination_filename = source_filename
 
     # Connect to S3 and upload file.
     conn = boto.connect_s3(app.config["S3_KEY"], app.config["S3_SECRET"])
@@ -34,3 +37,12 @@ def s3_upload(source_file, upload_dir=None, acl='public-read'):
     sml.set_acl(acl)
 
     return destination_filename
+
+#Downloads the file given by "filename" to the current directory from AWS S3
+def s3_download(filename):
+    upload_dir = app.config["S3_UPLOAD_DIRECTORY"]
+    conn = boto.connect_s3(app.config["S3_KEY"], app.config["S3_SECRET"])
+    bucket = conn.get_bucket(app.config["S3_BUCKET"])
+    keyname = "/".join([upload_dir, filename])
+    key = bucket.get_key(keyname)
+    key.get_contents_to_filename(filename)
