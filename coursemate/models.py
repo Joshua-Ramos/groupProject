@@ -61,7 +61,6 @@ class Post(db.Model):
 
 class File(db.Model):
     __tablename__ = 'File'
-
     name = db.Column('File_Name', db.String, primary_key = True, nullable = False)
     uploaded = db.Column('Uploaded', db.Date, primary_key = False, nullable = False)
     course_id = db.Column('course_id', db.Integer, primary_key = False, nullable = False)

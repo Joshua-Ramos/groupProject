@@ -96,7 +96,9 @@ def courses_page():
 
 @app.route('/courses/<course_name>', methods = ['POST', 'GET'])
 def course_page(course_name):
-    course = Course.query.filter_by(name=course_name).all()[0]  # hacky but good enough  for now (milestone 5)
+    course = Course.query.filter_by(name=course_name).all()
+    if course is not None:
+        course = course[0]  # hacky but good enough  for now (milestone 5)
     course_id = course.class_id
     if request.method == 'POST':
         post_title  = request.form['title']
@@ -107,7 +109,9 @@ def course_page(course_name):
         new_post = Post(post_title, course_id, userid, post_content, post_time)
         db.session.add(new_post)
         db.session.commit()
-    if not session.get('logged_in'): return login_page()    # block access if not logged in
+    if not session.get('logged_in'):
+        return login_page()    # block access if not logged in
+    #Get all files and posts for the current course
     files = File.query.filter_by(course_id=course_id).all()
     posts = Post.query.filter_by(course=course_id).all()
     return render_template('course.html', title=course_name, posts=posts, files = files)
