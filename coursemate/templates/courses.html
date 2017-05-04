@@ -32,16 +32,53 @@
 
   </head>
 
+<!-- NAVBAR
+================================================== -->
+
+<div class="navbar-wrapper">
+  <div class="container">
+
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"> <img class="CourseMate_Logo" src="../static/css/Course_Mate_Home/Course_Mate_Logo_Official.png" width = "150" height = "25"</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+{#                <li><a href="/feed">Feed</a></li>#}
+            <li><a href="#">Search</a></li>
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/courses">Courses</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/logout">Log Out</a></li>
+                <li><a href="/about">Help?</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</div>
+
 <body>
 
-{#{% include "components/navbar.html" %}#}
-{% include "components/navbar_new.html" %}
-
-  <div class="padder">  <!-- keeps content out from under navbar -->
-
-    <div class="container"> <!-- can't remember why this is here -->
-
-      <div class="row">     <!-- all columns must be in rows to work -->
+<div class="container marketing">
+<hr class="featurette-divider">
+<div class="col-md-7">
+<h2 class="featurette-heading"> <span class="text-muted">Find or Add Courses</span></h2>
+<p class="lead">Please refer to the list below for all available courses. If the course you are looking for is not available, feel free to add it into out database.</p>
+ 
+     <div class="row">     <!-- all columns must be in rows to work -->
 
         <div class="col-md-3">  <!-- left column -->
 {#          {% include "components/nav_courses.html" %}#}
@@ -51,10 +88,11 @@
 
           <br><br><br><br><br> <!-- i'm sure there's a better way to do this -->
 
+	
           <form action="/courses" method="POST">
             <input type="text" placeholder="Course Title" name="course_title">
-            <input type="text" placeholder="Course Id" name="course_id">
-            <input type="submit" name="my-form" value="add course">
+            <input type="text" placeholder="Course ID" name="course_id">
+            <input type="submit" name="my-form" value="Add Course">
           </form>
 
           <br>
@@ -68,16 +106,31 @@
         </div>
 
       </div>  <!-- end of row -->
+</div>
 
-    </div> <!-- end of container -->
+<div class="Image_Padder">  <!-- keeps content out from under navbar -->
+<img class="featurette-image img-responsive center-block" src="static/css/Course_Mate_Home/Books_Pic.png" alt="Generic placeholder image" width="300" height="300">
+</div>
 
-  </div>   <!-- end of padder -->
+  <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 CourseMate, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
 
-{% include "components/footer.html" %}
+</div> <!-- /.container -->
 
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/css/Course_Mate_Home/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="static/css/Course_Mate_Home/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/css/Course_Mate_Home/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
 
-</body>
-
-
-        <div style="float:right;">
