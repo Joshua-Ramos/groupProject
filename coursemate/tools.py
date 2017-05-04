@@ -4,7 +4,11 @@ import os.path
 from flask import current_app as app
 from werkzeug.utils import secure_filename
 
-
+'''
+Credits to Github user Dubeh
+https://github.com/doobeh/Flask-S3-Uploader
+The s3_upload is his code!
+'''
 
 def s3_upload(source_file, upload_dir=None, acl='public-read'):
     """ Uploads WTForm File Object to Amazon S3
