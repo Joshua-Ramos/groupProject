@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,42 +29,83 @@
     <!-- Custom styles for this template -->
     <link href="static/css/Course_Mate_Home/Course_Mate_Style.css" rel="stylesheet">
 
-
   </head>
 
+<!-- NAVBAR
+================================================== -->
+
+<div class="navbar-wrapper">
+  <div class="container">
+
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"> <img class="CourseMate_Logo" src="../static/css/Course_Mate_Home/Course_Mate_Logo_Official.png" width = "150" height = "25"</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+{#                <li><a href="/feed">Feed</a></li>#}
+            <li><a href="#">Search</a></li>
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/courses">Courses</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/logout">Log Out</a></li>
+                <li><a href="/about">Help?</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</div>
 
 <body>
 
-{#{% include "components/navbar.html" %}#}
-{% include "components/navbar_new.html" %}
+<div class="container marketing">
+<hr class="featurette-divider">
+<div class="col-md-7">
+<h2 class="featurette-heading"> <span class="text-muted">Help</span></h2>
+<p class="lead">Navigating through our website is simple thanks to the navigation bar located at the top of every page. To access different pages on our website, use the navigation bar at the top and click on the buttons. Click on
+          the "CourseMate Logo" to go back to the site's main page. Click on the "Search" button to look for a document. Click on the 
+          "Upload" button to upload documents to our database. Click on the "Courses" button to access our available 
+          documents for each course. If you are trying to log out, or need help, mouse-click the "Other" button and a drop down
+          menu will appear. Select the option you are looking for.</p>
 
-<div class="padder">  <!-- keeps content out from under navbar -->
+</div>
+<div class="col-md-5">
+<img class="featurette-image img-responsive center-block" src="static/css/Course_Mate_Home/Help_Button" alt="Generic placeholder image" width="300" height="300" >
+</div>
 
-  <div class="container"> <!-- can't remember why this is here -->
+<!-- /END THE FEATURETTES -->
 
-    <div class="row">     <!-- all columns must be in rows to work -->
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 CourseMate, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
 
-      <div class="col-md-3">  <!-- left column -->
-
-{#        {% include "components/nav_courses.html" %}#}
-
-      </div>
-
-      <div class="col-md-7">  <!-- right column -->
-        <h1>About Us</h1>
-        <p>We're a group of students who are currently enrolled in CSCI 3308 at CU Boulder.</p>
-
-      </div>
-
-    </div>  <!-- end of row -->
-
-  </div>  <!-- end of container -->
-
-</div>  <!-- end of padder -->
+    </div><!-- /.container -->
 
 
-{% include "components/footer.html" %}
-
-
-</body>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/css/Course_Mate_Home/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="static/css/Course_Mate_Home/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/css/Course_Mate_Home/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
